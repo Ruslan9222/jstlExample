@@ -1,4 +1,4 @@
-package by.radevich.jstlexample;
+package by.radevich.jstlexample.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class loginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var login = req.getParameter("login");
         var password = req.getParameter("password");
+        req.setAttribute("names", Arrays.asList("Pasha","Misha","Natasha","Tom"));
         Map<String,String> errors = new HashMap<>();//мэпка с ошибками
         if (login == null || login.length()==0){
             errors.put("login", "login cant be null");
@@ -27,7 +29,7 @@ public class loginServlet extends HttpServlet {
             req.setAttribute("errors",errors);
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         }else {
-            req.getRequestDispatcher("success.jsp").forward(req,resp);
+            req.getRequestDispatcher("Success.jsp").forward(req,resp);
         }
     }
 }
