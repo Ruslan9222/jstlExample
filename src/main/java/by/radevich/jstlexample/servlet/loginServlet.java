@@ -1,5 +1,7 @@
 package by.radevich.jstlexample.servlet;
 
+import by.radevich.jstlexample.service.ProductService;
+import by.radevich.jstlexample.service.ProductServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,7 +31,9 @@ public class loginServlet extends HttpServlet {
             req.setAttribute("errors",errors);
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         }else {
-            req.getRequestDispatcher("Success.jsp").forward(req,resp);
+            ProductService service = new ProductServiceImpl();
+            req.setAttribute("products",service.fiendAll());
+            req.getRequestDispatcher("list.jsp").forward(req,resp);
         }
     }
 }
